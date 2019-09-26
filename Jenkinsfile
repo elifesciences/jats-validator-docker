@@ -21,11 +21,12 @@ elifePipeline {
 //            ])
 //        }
 
-//        elifeMainlineOnly {
-//            stage 'Push image', {
-//                image = DockerImage.elifesciences(this, "digests", commit)
-//                image.push()
-//            }
-//        }
+        elifeMainlineOnly {
+            stage 'Push image', {
+                image = DockerImage.elifesciences(this, 'jats-validator', commit)
+                image.push()
+                image.tag('latest').push()
+            }
+        }
     }
 }
