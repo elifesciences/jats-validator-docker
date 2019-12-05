@@ -1,5 +1,5 @@
 # build the Schematron XSL files from the Schematron source files
-FROM hubdock/php7-apache-saxonhe AS builder
+FROM hubdock/php7-apache-saxonhe:1.1.2 AS builder
 
 WORKDIR /build
 COPY build ./
