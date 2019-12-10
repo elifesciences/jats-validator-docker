@@ -58,7 +58,7 @@ RUN curl -L https://github.com/JATS4R/jats-schematrons/archive/v${JATS4R_SCHEMAT
 RUN php generate-xsl.php jats-schematrons-${JATS4R_SCHEMATRONS_VERSION}/schematrons/1.0/jats4r.sch jats4r.xsl
 
 # Get eLife specific schemas...
-ARG SCHEMATRONS_COMMIT=master
+ARG SCHEMATRONS_COMMIT=5b145f9358f4e9b9d42c014ac9a206a62b3bb962
 RUN curl -L https://github.com/elifesciences/eLife-JATS-schematron/raw/${SCHEMATRONS_COMMIT}/src/pre-JATS-schematron.sch -o elife-schematron-pre.sch
 RUN php generate-xsl.php elife-schematron-pre.sch elife-pre.xsl
 RUN curl -L https://github.com/elifesciences/eLife-JATS-schematron/raw/${SCHEMATRONS_COMMIT}/src/final-JATS-schematron.sch -o elife-schematron-final.sch
