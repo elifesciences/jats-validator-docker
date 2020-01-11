@@ -57,17 +57,22 @@ ARG JATS4R_SCHEMATRONS_VERSION=0.0.4
 RUN curl -L https://github.com/JATS4R/jats-schematrons/archive/v${JATS4R_SCHEMATRONS_VERSION}.tar.gz | tar xz
 RUN php generate-xsl.php jats-schematrons-${JATS4R_SCHEMATRONS_VERSION}/schematrons/1.0/jats4r.sch jats4r.xsl
 
+<<<<<<< HEAD
 # Get eLife specific schemas...
 ARG SCHEMATRONS_COMMIT=6f9a349e90a379037fa7086fa5c3cb1cc770c6c8
 RUN curl -L https://github.com/elifesciences/eLife-JATS-schematron/raw/${SCHEMATRONS_COMMIT}/src/pre-JATS-schematron.sch -o elife-schematron-pre.sch
 RUN php generate-xsl.php elife-schematron-pre.sch elife-pre.xsl
+=======
+ARG SCHEMATRONS_COMMIT=eb8409ec19061eb6bf4488464b51deb84737ef28
+RUN curl -L https://github.com/elifesciences/eLife-JATS-schematron/raw/${SCHEMATRONS_COMMIT}/src/pre-JATS-schematron.sch -o elife-schematron-pre.sch
+RUN php generate-xsl.php elife-schematron-pre.sch elife-pre.xsl
+
+>>>>>>> 3bbbf14... Finish refactoring
 RUN curl -L https://github.com/elifesciences/eLife-JATS-schematron/raw/${SCHEMATRONS_COMMIT}/src/final-JATS-schematron.sch -o elife-schematron-final.sch
 RUN php generate-xsl.php elife-schematron-final.sch elife-final.xsl
 
 # fetch the DTDs and copy the Schematron XSL files into place
 FROM base
-
-RUN apt-get update && apt-get install -y httpry
 
 WORKDIR /dtds
 ARG DTDS_VERSION=0.0.5
@@ -84,5 +89,8 @@ RUN curl https://raw.githubusercontent.com/elifesciences/eLife-JATS-schematron/$
 RUN curl https://raw.githubusercontent.com/elifesciences/eLife-JATS-schematron/${SCHEMATRONS_COMMIT}/src/publisher-locations.xml -o publisher-locations.xml
 RUN curl https://raw.githubusercontent.com/elifesciences/eLife-JATS-schematron/${SCHEMATRONS_COMMIT}/src/us-uk-list.xml -o us-uk-list.xml
 
+COPY cli/ ./
 COPY web/ ./
+COPY functions/ ../functions/
 COPY --from=builder /build/*.xsl ./
+
