@@ -19,7 +19,7 @@ This is currently a somewhat minimal manual step, automation does need to be bou
 
    ```
    docker build . --tag jats-validator --no-cache
-   docker run --rm --p 4000:80 jats-validator
+   docker run --rm -p 4000:80 jats-validator
    ```
 
 3. If everything is OK, commit the changes using the following as a template for the commit message.
